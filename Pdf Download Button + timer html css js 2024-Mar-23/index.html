@@ -1,0 +1,109 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+ </head>
+
+ <!-- button style  ############### -->
+ <style>
+  /* ############ Button #################  */
+
+.download-btn{
+  outline: none;
+  border: none;
+  color: black;
+  /* display: flex; */
+  cursor: pointer;
+  padding: 15px 15px;
+  border-radius : 6px;
+  align-items: center;
+  white-space: nowrap;
+  background: #F8CE1A;
+  transition: all 0.2s ease;
+}
+
+.download-btn .text{
+  color: black;
+  background: #F8CE1A;
+  font-weight: 600;
+}
+
+.download-btn:hover{
+  background: #F8CE1A;
+}
+
+
+.download-btn.timer{
+  color: #fff;
+  background: none;
+  transition: none;
+  font-size: 1.6rem;
+  pointer-events: none;
+}
+.download-btn.timer b{
+  color: #F8CE1A;
+  padding: 0 8px;
+  border: 1px solid #F8CE1A;
+}
+.download-btn .icon{
+  font-size: 2rem;
+}
+.download-btn .text{
+  font-size: 1.5rem;
+  padding-left: 10px;
+}
+
+ </style>  <!--End button style  ############### -->
+
+ 
+ <body>
+
+   <!-- <a href="" > Download CV</a> -->
+   <button class="download-btn" data-timer="5">
+    <span class="icon material-symbols-rounded"> </span>
+    <span class="text">Download Files</span>
+  </button>
+
+<!-- script for button  -->
+  <script>
+
+const downloadBtn = document.querySelector(".download-btn");
+const fileLink = "https://drive.google.com/uc?export=download&id=1pQ5VeU4-bhE2BDoraKVzfX9rbjfudzDs";
+
+
+const initTimer = () => {
+if(downloadBtn.classList.contains("disable-timer")) {
+  return location.href = fileLink;
+}
+let timer = downloadBtn.dataset.timer;
+downloadBtn.classList.add("timer");
+downloadBtn.innerHTML = `Your download will begin in <b>${timer}</b> seconds`;
+const initCounter = setInterval(() => {
+  if(timer > 0) {
+      timer--;
+      return downloadBtn.innerHTML = `Your download will begin in <b>${timer}</b> seconds`;
+  }
+  clearInterval(initCounter);
+  location.href = fileLink;
+  downloadBtn.innerText = "Your file is downloading...";
+  setTimeout(() => {
+      downloadBtn.classList.replace("timer", "disable-timer");
+      downloadBtn.innerHTML = `<span class="icon material-symbols-rounded"> </span>
+                               <span class="text">Download Again</span>`;
+  }, 1000);
+}, 1000);
+}
+
+downloadBtn.addEventListener("click", initTimer);
+
+  </script>
+  
+ </body>
+ </html>
+ 
+ 
+
+
+
